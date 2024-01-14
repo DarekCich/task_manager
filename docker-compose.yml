@@ -1,0 +1,27 @@
+# docker-compose.yml
+
+version: '3'
+
+services:
+  # Usługa dla aplikacji Django
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_ALLOWED_HOSTS=*
+
+  # Usługa dla bazy danych Postgresql
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: task_manager_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"

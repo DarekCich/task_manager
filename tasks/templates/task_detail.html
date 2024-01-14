@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Szczegóły zadania</h1>
+  <p>Nazwa: {{ task.nazwa }}</p>
+  <p>Opis: {{ task.opis }}</p>
+  <p>Status: {{ task.status }}</p>
+  <p>Przypisany użytkownik: {{ task.przypisany_uzytkownik }}</p>
+
+  <!-- Dodaj przycisk "Edytuj" -->
+  <a href="{% url 'task_edit' pk=task.pk %}">
+    <button type="button">Edytuj</button>
+  </a>
+  <a href="{% url 'task_history' pk=task.pk %}">
+    <button type="button">Historia</button>
+  </a>
+{% endblock %}

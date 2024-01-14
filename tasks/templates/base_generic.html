@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <header>
+    <h1>Moja aplikacja Task Manager</h1>
+    {% if user.is_authenticated %}
+      <h2>Witaj {{ user.username }}!</h2>
+    {% endif %}
+  </header>
+  <nav>
+    {% if user.is_authenticated %}
+      <a href="{% url 'task_list' %}">Lista zadań</a>
+      <a href="{% url 'task_add' %}">Dodaj zadanie</a>
+      <a href="{% url 'task_history' %}">Historia</a>
+      <a href="{% url 'user_logout' %}">Wyloguj</a>
+    {% else %}
+      <a href="{% url 'user_login' %}">Zaloguj</a>
+      <a href="{% url 'user_register' %}">Zarejestruj</a>
+    {% endif %}
+  </nav>
+  <section>
+    {% block content %}{% endblock %}
+  </section>
+
+  <footer>
+    <p>Copyright © 2024 Aplikacja Task Manager</p>
+  </footer>
+</body>
+</html>

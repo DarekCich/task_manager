@@ -1,0 +1,11 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Edycja zadania</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zapisz zmiany</button>
+  </form>
+  <a href="{% url 'task_detail' pk=task.pk %}">Anuluj</a>
+{% endblock %}

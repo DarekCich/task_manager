@@ -1,0 +1,11 @@
+{% extends 'base_generic.html'%}
+{% block content%}
+  <h2>Dodaj nowe zadanie</h2>
+  
+  <form method="post" action="{% url 'task_add' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Dodaj zadanie</button>
+  </form>
+  <a href="{% url 'task_list' %}">Anuluj</a>
+{% endblock %}

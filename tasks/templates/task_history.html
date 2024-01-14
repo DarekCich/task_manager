@@ -1,0 +1,33 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+  {% if id %}
+    <h1>Historia zadania o id:{{id}}</h1>
+    <form method="get" action="{% url 'task_history' pk=id%}">
+      {{ filter_form.as_p }}
+      <button type="submit">filtruj i sortuj</button>
+    </form>
+  {% else%}
+    <h1>Historia zadań{{id}}</h1>
+    <form method="get" action="{% url 'task_history' %}">
+      {{ filter_form.as_p }}
+      <button type="submit">filtruj i sortuj</button>
+    </form>
+  {% endif %}
+  <ul>
+    {% for task in tasks %}
+      <li>
+        <div>
+          {% if not id %}
+            {{ task.id }} 
+            |
+          {% endif %}
+          {{ task.status }} 
+          |
+          {{ task.nazwa }} 
+          |
+          {{ task.przypisany_uzytkownik }} 
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

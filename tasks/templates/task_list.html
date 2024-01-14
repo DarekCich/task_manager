@@ -1,0 +1,33 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  <h1>Lista zadań</h1>
+
+  <form method="get" action="{% url 'task_list' %}">
+    {{ filter_form }}
+    <button type="submit">filtruj i sortuj</button>
+  </form>
+
+  <ul>
+    {% for task in tasks %}
+      <li>
+        <div>
+          {{ task.pk}}
+          |
+          {{ task.status }} 
+          |
+          {{ task.nazwa }} 
+          |
+          {{ task.przypisany_uzytkownik }} 
+        </div>
+        <a href="{% url 'task_detail' pk=task.pk %}">Szczegóły</a>
+        <a href="{% url 'task_delete' pk=task.pk %}">Usuń</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <h1>Zaloguj się, aby zobaczyć zawartość</h1>
+{% endif %}
+
+{% endblock %}
