@@ -12,10 +12,10 @@ class TaskForm(forms.ModelForm):
     super(TaskForm, self).__init__(*args, **kwargs)
     self.fields['nazwa'].required = True
     self.fields['przypisany_uzytkownik'] = forms.ModelChoiceField(
-        queryset=User.objects.all(),
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        required=True,
-        initial=''
+      queryset=User.objects.all(),
+      widget=forms.Select(attrs={'class': 'form-control'}),
+      required=True,
+      initial=''
     )
 
 class RegistrationForm(UserCreationForm):
