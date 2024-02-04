@@ -10,7 +10,7 @@ class TaskFilter(django_filters.FilterSet):
   class Meta:
     model = Task
     fields = ['nazwa','opis','przypisany_uzytkownik','status']
-    
+
 class TaskHistoryFilter(django_filters.FilterSet):
   date = django_filters.DateFilter(field_name='history_date__date')
   class Meta:

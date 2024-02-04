@@ -11,7 +11,7 @@ class TaskSerializer(serializers.ModelSerializer):
     allow_null=False,
     required=True
   )
-  
+
   class Meta:
     model = Task
     fields = '__all__'
@@ -26,7 +26,7 @@ class TaskHistoryListSerializer(serializers.ModelSerializer):
   class Meta:
     model = Task
     fields = '__all__'
-    
+
 class UserRegistrationSerializer(serializers.ModelSerializer):
   password = serializers.CharField(write_only=True, required=True)
   class Meta:
