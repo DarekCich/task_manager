@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from rest_framework.decorators  import action
 from rest_framework.response    import Response
 from .serializers               import TaskSerializer, TaskHistoryListSerializer, UserRegistrationSerializer
-from .filters import TaskFilter
+from .filters import TaskFilter, TaskHistoryFilter
 
 class TaskViewSet(viewsets.ModelViewSet):
   queryset = Task.objects.all()
@@ -50,13 +50,14 @@ class TaskViewSet(viewsets.ModelViewSet):
   
   @action(detail=False, methods=['get'])
   def task_history(self, request, pk=None):
-    task = self.get_object()      if pk   else None
-    history = task.history.all()  if task else Task.history.all()
-    date = request.query_params.get('date')
-    if date:
-      history = history.filter(history_date__date=date)
+    task = self.get_object() if pk else None
+    history = task.history.all() if task else Task.history.all()
 
-    serializer = TaskHistoryListSerializer(history, many=True)
+    # Użyj filtra TaskHistoryFilter
+    filter_set = TaskHistoryFilter(request.GET, queryset=history)
+    queryset = filter_set.qs
+
+    serializer = TaskHistoryListSerializer(queryset, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
   
 class UserRegistrationView(generics.CreateAPIView):
