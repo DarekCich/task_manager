@@ -53,7 +53,6 @@ class TaskViewSet(viewsets.ModelViewSet):
     task = self.get_object() if pk else None
     history = task.history.all() if task else Task.history.all()
 
-    # Użyj filtra TaskHistoryFilter
     filter_set = TaskHistoryFilter(request.GET, queryset=history)
     queryset = filter_set.qs
 
